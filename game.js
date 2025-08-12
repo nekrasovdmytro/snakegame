@@ -7,7 +7,7 @@ const restartBtn = document.getElementById('restartBtn');
 const speedStat = document.getElementById('speedStat');
 const lengthStat = document.getElementById('lengthStat');
 
-const gridSize = 20;
+const gridSize = 15;
 const tileCount = canvas.width / gridSize;
 
 let snake = [
@@ -183,21 +183,21 @@ function drawSnakeHead3D(x, y, z) {
     ctx.shadowBlur = 0;
     
     ctx.strokeStyle = '#00ffaa';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.5;
     ctx.strokeRect(-gridSize/2 + 1, -gridSize/2 + 1, gridSize - 2, gridSize - 2);
     
     // 3D eyes with depth
     ctx.shadowColor = '#ffffff';
-    ctx.shadowBlur = 5;
+    ctx.shadowBlur = 3;
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(-gridSize/2 + 5, -gridSize/2 + 5, 3, 3);
-    ctx.fillRect(-gridSize/2 + 12, -gridSize/2 + 5, 3, 3);
+    ctx.fillRect(-gridSize/2 + 4, -gridSize/2 + 4, 2, 2);
+    ctx.fillRect(-gridSize/2 + 9, -gridSize/2 + 4, 2, 2);
     ctx.shadowBlur = 0;
     
     // Pupils with 3D effect
     ctx.fillStyle = '#000000';
-    ctx.fillRect(-gridSize/2 + 6, -gridSize/2 + 6, 1, 1);
-    ctx.fillRect(-gridSize/2 + 13, -gridSize/2 + 6, 1, 1);
+    ctx.fillRect(-gridSize/2 + 4.5, -gridSize/2 + 4.5, 1, 1);
+    ctx.fillRect(-gridSize/2 + 9.5, -gridSize/2 + 4.5, 1, 1);
     
     ctx.restore();
 }
@@ -224,7 +224,7 @@ function drawSnakeBody3D(x, y, z, index) {
     ctx.fillRect(-gridSize/2 + 1, -gridSize/2 + 1, gridSize - 2, gridSize - 2);
     
     ctx.strokeStyle = `rgba(0, ${green}, ${blue}, 0.8)`;
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 0.8;
     ctx.strokeRect(-gridSize/2 + 1, -gridSize/2 + 1, gridSize - 2, gridSize - 2);
     
     ctx.restore();
@@ -258,16 +258,16 @@ function drawFood() {
     ctx.shadowBlur = 0;
     
     ctx.strokeStyle = '#ff6b6b';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.5;
     ctx.strokeRect(-gridSize/2 + 2, -gridSize/2 + 2, gridSize - 4, gridSize - 4);
     
     // 3D animated eyes
     const eyeGlow = Math.sin(foodGlow * 3) * 0.5 + 0.5;
     ctx.shadowColor = '#ffffff';
-    ctx.shadowBlur = 5 * eyeGlow;
+    ctx.shadowBlur = 3 * eyeGlow;
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(-gridSize/2 + 6, -gridSize/2 + 6, 2, 2);
-    ctx.fillRect(-gridSize/2 + 12, -gridSize/2 + 6, 2, 2);
+    ctx.fillRect(-gridSize/2 + 4, -gridSize/2 + 4, 2, 2);
+    ctx.fillRect(-gridSize/2 + 9, -gridSize/2 + 4, 2, 2);
     ctx.shadowBlur = 0;
     
     ctx.restore();
