@@ -56,6 +56,30 @@
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .left-sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            min-width: 250px;
+            max-width: 280px;
+            text-align: center;
+        }
+        
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
         }
         
 
@@ -142,6 +166,27 @@
             transform: translateZ(20px);
         }
         
+        .language-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            transform: translateZ(20px);
+        }
+        
+        .language-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.7em;
+            padding: 6px 12px;
+        }
+        
+        .language-btn.active {
+            background: rgba(0, 255, 136, 0.3);
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+        
         .control-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -172,7 +217,9 @@
             position: relative;
             transform-style: preserve-3d;
             transform: translateZ(40px) rotateX(10deg);
-            margin: 15px 0;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
         }
         
         canvas {
@@ -187,6 +234,8 @@
             position: relative;
             z-index: 1;
             transform-style: preserve-3d;
+            max-width: 100%;
+            height: auto;
         }
         
         canvas:hover {
@@ -271,9 +320,6 @@
         }
         
         .sound-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
@@ -285,7 +331,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            z-index: 10;
             transform-style: preserve-3d;
         }
         
@@ -335,9 +380,6 @@
         }
         
         .game-stats {
-            position: absolute;
-            top: 20px;
-            left: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 15px;
@@ -346,12 +388,77 @@
             backdrop-filter: blur(10px);
             transform: translateZ(25px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
         }
         
         .stat-item {
             margin: 5px 0;
             display: flex;
             justify-content: space-between;
+        }
+        
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 20px;
+                margin: 10px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .left-sidebar {
+                min-width: auto;
+                max-width: none;
+                width: 100%;
+            }
+            
+            .title {
+                font-size: 1.4em;
+                letter-spacing: 2px;
+            }
+            
+            .score-container {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+            
+            .controls {
+                gap: 10px;
+            }
+            
+            .control-btn {
+                font-size: 0.7em;
+                padding: 6px 12px;
+            }
+            
+            .instructions {
+                font-size: 0.7em;
+            }
+            
+            .game-stats {
+                font-size: 0.8em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 1.2em;
+                letter-spacing: 1px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .language-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -364,34 +471,59 @@
     </div>
     <div class="floating-particles" id="particles"></div>
     <div class="game-container">
-        <div class="sound-toggle" id="soundToggle">
-            <div class="sound-icon">🔊</div>
-        </div>
-        <div class="game-stats">
-            <div class="stat-item">
-                <span>Speed:</span>
-                <span id="speedStat">1x</span>
+        <div class="left-sidebar">
+            <div class="sound-toggle" id="soundToggle">
+                <div class="sound-icon">🔊</div>
             </div>
-            <div class="stat-item">
-                <span>Length:</span>
-                <span id="lengthStat">1</span>
+            <h1 class="title">SNAKE GAME</h1>
+            <div class="score-container">
+                Score: <span id="score">0</span>
+            </div>
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span>Speed:</span>
+                    <span id="speedStat">1x</span>
+                </div>
+                <div class="stat-item">
+                    <span>Length:</span>
+                    <span id="lengthStat">1</span>
+                </div>
+                <div class="stat-item">
+                    <span>Accuracy:</span>
+                    <span id="accuracyStat">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span>Streak:</span>
+                    <span id="streakStat">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>Words:</span>
+                    <span id="wordCountStat">0</span>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="control-btn" id="pauseBtn">⏸️ PAUSE</div>
+                <div class="control-btn" id="restartBtn">🔄 RESTART</div>
+            </div>
+                    <div class="language-controls">
+            <div class="control-btn language-btn active" data-language="Spanish">🇪🇸 Spanish</div>
+            <div class="control-btn language-btn" data-language="German">🇩🇪 German</div>
+            <div class="control-btn language-btn" data-language="Ukrainian">🇺🇦 Ukrainian</div>
+        </div>
+            <div class="instructions">
+                Use <span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span class="key">→</span> to move<br>
+                <strong>🎯 How to Learn:</strong><br>
+                1. See the foreign word at the top<br>
+                2. Find the food with the English translation<br>
+                3. Eat it to learn the word!<br>
+                Press <span class="key">SPACE</span> to pause/resume<br>
+                <span class="key">🇪🇸🇩🇪🇺🇦</span> Choose your learning language
             </div>
         </div>
-        <h1 class="title">SNAKE GAME</h1>
-        <div class="score-container">
-            Score: <span id="score">0</span>
-        </div>
-        <div class="controls">
-            <div class="control-btn" id="pauseBtn">⏸️ PAUSE</div>
-            <div class="control-btn" id="restartBtn">🔄 RESTART</div>
-        </div>
-        <div class="canvas-container">
-            <canvas id="gameCanvas" width="300" height="300"></canvas>
-        </div>
-        <div class="instructions">
-            Use <span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span class="key">→</span> to move<br>
-            Eat the glowing food to grow and score points<br>
-            Press <span class="key">SPACE</span> to pause/resume
+        <div class="game-area">
+            <div class="canvas-container">
+                <canvas id="gameCanvas" width="400" height="400"></canvas>
+            </div>
         </div>
     </div>
     <script src="game.js"></script>
