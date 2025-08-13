@@ -16,6 +16,11 @@ const rightBtn = document.getElementById('rightBtn');
 const mobilePauseBtn = document.getElementById('mobilePauseBtn');
 const mobileRestartBtn = document.getElementById('mobileRestartBtn');
 
+// Game overlay controls
+const gameControlsOverlay = document.getElementById('gameControlsOverlay');
+const overlayPauseBtn = document.getElementById('overlayPauseBtn');
+const overlayRestartBtn = document.getElementById('overlayRestartBtn');
+
 // Mobile detection
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -1004,6 +1009,7 @@ function resetGame() {
     // Update mobile pause button
     if (isMobile) {
         mobilePauseBtn.textContent = '⏸️';
+        overlayPauseBtn.textContent = '⏸️';
     }
 }
 
@@ -1019,12 +1025,14 @@ function updatePauseButton() {
         pauseBtn.classList.add('active');
         if (isMobile) {
             mobilePauseBtn.textContent = '▶️';
+            overlayPauseBtn.textContent = '▶️';
         }
     } else {
         pauseBtn.textContent = '⏸️ PAUSE';
         pauseBtn.classList.remove('active');
         if (isMobile) {
             mobilePauseBtn.textContent = '⏸️';
+            overlayPauseBtn.textContent = '⏸️';
         }
     }
 }
@@ -1153,6 +1161,24 @@ mobileRestartBtn.addEventListener('touchstart', (e) => {
     gameLoop();
 });
 
+// Game overlay controls event listeners
+overlayPauseBtn.addEventListener('click', togglePause);
+overlayRestartBtn.addEventListener('click', () => {
+    resetGame();
+    gameLoop();
+});
+
+overlayPauseBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    togglePause();
+});
+
+overlayRestartBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    resetGame();
+    gameLoop();
+});
+
 // Desktop button event listeners
 pauseBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
@@ -1181,6 +1207,7 @@ gameLoop();
 // Show mobile controls on mobile devices
 if (isMobile) {
     mobileControls.classList.add('show');
+    gameControlsOverlay.classList.add('show');
     
     // Add swipe gesture support
     canvas.addEventListener('touchstart', handleTouchStart, false);
@@ -1195,7 +1222,7 @@ if (isMobile) {
             1. See the foreign word at the top<br>
             2. Find the food with the English translation<br>
             3. Eat it to learn the word!<br>
-            Tap pause button to pause/resume<br>
+            Tap pause/restart buttons on game or below<br>
             <span class="key">🇪🇸🇩🇪🇺🇦</span> Choose your learning language
         `;
     }

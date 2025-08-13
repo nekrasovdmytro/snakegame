@@ -81,6 +81,39 @@
             align-items: center;
             justify-content: center;
             flex: 1;
+            position: relative;
+        }
+
+        .game-controls-overlay {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            gap: 8px;
+        }
+
+        .game-controls-overlay.show {
+            display: flex;
+        }
+
+        .game-controls-overlay .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .game-controls-overlay .control-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
         }
         
 
@@ -521,6 +554,10 @@
                 display: flex;
             }
 
+            .game-controls-overlay {
+                display: flex;
+            }
+
             .canvas-container {
                 transform: translateZ(10px) rotateX(2deg);
                 margin: 10px 0;
@@ -578,6 +615,12 @@
 
             .mobile-controls {
                 bottom: 5px;
+            }
+
+            .game-controls-overlay .control-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
             }
 
             .mobile-btn {
@@ -658,6 +701,12 @@
             .mobile-controls {
                 bottom: 2px;
                 gap: 6px;
+            }
+
+            .game-controls-overlay .control-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
             }
 
             .mobile-btn {
@@ -772,6 +821,10 @@
             </div>
         </div>
         <div class="game-area">
+            <div class="game-controls-overlay" id="gameControlsOverlay">
+                <div class="control-btn" id="overlayPauseBtn">⏸️</div>
+                <div class="control-btn" id="overlayRestartBtn">🔄</div>
+            </div>
             <div class="canvas-container">
                 <canvas id="gameCanvas" width="400" height="400"></canvas>
             </div>
