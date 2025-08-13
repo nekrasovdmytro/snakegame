@@ -1262,9 +1262,6 @@ if (isMobile) {
     gameControlsOverlay.classList.add('show');
     fingerControls.classList.add('show');
     
-    // Start with subtle controls to avoid blocking text
-    fingerControls.classList.add('subtle');
-    
     // Add swipe gesture support
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchend', handleTouchEnd, false);
@@ -1273,7 +1270,7 @@ if (isMobile) {
     const instructions = document.querySelector('.instructions');
     if (instructions) {
         instructions.innerHTML = `
-            Use finger controls around game, swipe, or buttons below<br>
+            Use circular controls at bottom right, swipe, or buttons below<br>
             <strong>🎯 How to Learn:</strong><br>
             1. See the foreign word at the top<br>
             2. Find the food with the English translation<br>
