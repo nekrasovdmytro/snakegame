@@ -131,18 +131,34 @@
             display: block;
         }
 
+        .finger-controls.subtle .finger-control-area {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .finger-controls.subtle .finger-control-area:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .finger-controls.subtle .finger-control-area:active {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 1);
+        }
+
         .finger-control-area {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 24px;
             font-weight: bold;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(3px);
             pointer-events: auto;
             transition: all 0.2s ease;
             user-select: none;
@@ -152,12 +168,19 @@
         }
 
         .finger-control-area:active {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 1);
             transform: scale(0.95);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .finger-control-area:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .finger-control-area.up {
-            top: 10px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
             width: 60px;
@@ -705,6 +728,10 @@
                 font-size: 20px;
             }
 
+            .finger-control-area.up {
+                top: 70px;
+            }
+
             .mobile-btn {
                 width: 45px;
                 height: 45px;
@@ -795,6 +822,10 @@
                 width: 45px;
                 height: 45px;
                 font-size: 18px;
+            }
+
+            .finger-control-area.up {
+                top: 60px;
             }
 
             .mobile-btn {

@@ -1238,6 +1238,9 @@ if (isMobile) {
     gameControlsOverlay.classList.add('show');
     fingerControls.classList.add('show');
     
+    // Start with subtle controls to avoid blocking text
+    fingerControls.classList.add('subtle');
+    
     // Add swipe gesture support
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchend', handleTouchEnd, false);
