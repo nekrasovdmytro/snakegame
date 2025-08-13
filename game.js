@@ -7,6 +7,24 @@ const restartBtn = document.getElementById('restartBtn');
 const speedStat = document.getElementById('speedStat');
 const lengthStat = document.getElementById('lengthStat');
 
+// Mobile controls
+const mobileControls = document.getElementById('mobileControls');
+const upBtn = document.getElementById('upBtn');
+const downBtn = document.getElementById('downBtn');
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+const mobilePauseBtn = document.getElementById('mobilePauseBtn');
+const mobileRestartBtn = document.getElementById('mobileRestartBtn');
+
+// Mobile detection
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// Touch/swipe variables
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
 const gridSize = 16;
 const tileCount = canvas.width / gridSize;
 
@@ -543,7 +561,8 @@ function playStartSound() {
 
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 40; i++) {
+    const particleCount = isMobile ? 20 : 40;
+    for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
@@ -567,6 +586,11 @@ function drawGame() {
     drawCurrentWord();
     updateStats();
     time += 0.016;
+    
+    // Optimize for mobile by reducing particle count
+    if (isMobile && particles.length > 20) {
+        particles.splice(20, particles.length - 20);
+    }
 }
 
 function clearCanvas() {
@@ -774,7 +798,8 @@ function moveSnake() {
 }
 
 function createEatEffect3D(x, y, z) {
-    for (let i = 0; i < 15; i++) {
+    const particleCount = isMobile ? 8 : 15;
+    for (let i = 0; i < particleCount; i++) {
         particles.push({
             x: x + gridSize/2,
             y: y + gridSize/2,
@@ -975,6 +1000,11 @@ function resetGame() {
     playStartSound();
     updatePauseButton();
     generateNewWord();
+    
+    // Update mobile pause button
+    if (isMobile) {
+        mobilePauseBtn.textContent = '⏸️';
+    }
 }
 
 function togglePause() {
@@ -987,9 +1017,15 @@ function updatePauseButton() {
     if (gamePaused) {
         pauseBtn.textContent = '▶️ RESUME';
         pauseBtn.classList.add('active');
+        if (isMobile) {
+            mobilePauseBtn.textContent = '▶️';
+        }
     } else {
         pauseBtn.textContent = '⏸️ PAUSE';
         pauseBtn.classList.remove('active');
+        if (isMobile) {
+            mobilePauseBtn.textContent = '⏸️';
+        }
     }
 }
 
@@ -1053,6 +1089,71 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+// Mobile touch controls
+function handleMobileDirection(direction) {
+    if (!gameRunning || gamePaused) return;
+    
+    switch (direction) {
+        case 'up':
+            if (dy !== 1) {
+                dx = 0;
+                dy = -1;
+            }
+            break;
+        case 'down':
+            if (dy !== -1) {
+                dx = 0;
+                dy = 1;
+            }
+            break;
+        case 'left':
+            if (dx !== 1) {
+                dx = -1;
+                dy = 0;
+            }
+            break;
+        case 'right':
+            if (dx !== -1) {
+                dx = 1;
+                dy = 0;
+            }
+            break;
+    }
+}
+
+// Mobile button event listeners
+upBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('up');
+});
+
+downBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('down');
+});
+
+leftBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('left');
+});
+
+rightBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('right');
+});
+
+mobilePauseBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    togglePause();
+});
+
+mobileRestartBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    resetGame();
+    gameLoop();
+});
+
+// Desktop button event listeners
 pauseBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
 soundToggle.addEventListener('click', toggleSound);
@@ -1076,3 +1177,66 @@ initAudio();
 createParticles();
 resetGame();
 gameLoop();
+
+// Show mobile controls on mobile devices
+if (isMobile) {
+    mobileControls.classList.add('show');
+    
+    // Add swipe gesture support
+    canvas.addEventListener('touchstart', handleTouchStart, false);
+    canvas.addEventListener('touchend', handleTouchEnd, false);
+    
+    // Update instructions for mobile
+    const instructions = document.querySelector('.instructions');
+    if (instructions) {
+        instructions.innerHTML = `
+            Swipe on screen or use buttons below to move<br>
+            <strong>🎯 How to Learn:</strong><br>
+            1. See the foreign word at the top<br>
+            2. Find the food with the English translation<br>
+            3. Eat it to learn the word!<br>
+            Tap pause button to pause/resume<br>
+            <span class="key">🇪🇸🇩🇪🇺🇦</span> Choose your learning language
+        `;
+    }
+}
+
+// Swipe gesture functions
+function handleTouchStart(event) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}
+
+function handleTouchEnd(event) {
+    event.preventDefault();
+    const touch = event.changedTouches[0];
+    touchEndX = touch.clientX;
+    touchEndY = touch.clientY;
+    handleSwipe();
+}
+
+function handleSwipe() {
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+    const minSwipeDistance = 30;
+    
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (Math.abs(diffX) > minSwipeDistance) {
+            if (diffX > 0) {
+                handleMobileDirection('left');
+            } else {
+                handleMobileDirection('right');
+            }
+        }
+    } else {
+        if (Math.abs(diffY) > minSwipeDistance) {
+            if (diffY > 0) {
+                handleMobileDirection('up');
+            } else {
+                handleMobileDirection('down');
+            }
+        }
+    }
+}
