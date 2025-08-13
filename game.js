@@ -7,14 +7,7 @@ const restartBtn = document.getElementById('restartBtn');
 const speedStat = document.getElementById('speedStat');
 const lengthStat = document.getElementById('lengthStat');
 
-// Mobile controls
-const mobileControls = document.getElementById('mobileControls');
-const upBtn = document.getElementById('upBtn');
-const downBtn = document.getElementById('downBtn');
-const leftBtn = document.getElementById('leftBtn');
-const rightBtn = document.getElementById('rightBtn');
-const mobilePauseBtn = document.getElementById('mobilePauseBtn');
-const mobileRestartBtn = document.getElementById('mobileRestartBtn');
+
 
 // Game overlay controls
 const gameControlsOverlay = document.getElementById('gameControlsOverlay');
@@ -1137,26 +1130,7 @@ function handleMobileDirection(direction) {
     }
 }
 
-// Mobile button event listeners
-upBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleMobileDirection('up');
-});
 
-downBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleMobileDirection('down');
-});
-
-leftBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleMobileDirection('left');
-});
-
-rightBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleMobileDirection('right');
-});
 
 // Game overlay controls event listeners
 overlayPauseBtn.addEventListener('click', togglePause);
