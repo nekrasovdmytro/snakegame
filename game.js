@@ -21,6 +21,13 @@ const gameControlsOverlay = document.getElementById('gameControlsOverlay');
 const overlayPauseBtn = document.getElementById('overlayPauseBtn');
 const overlayRestartBtn = document.getElementById('overlayRestartBtn');
 
+// Finger controls
+const fingerControls = document.getElementById('fingerControls');
+const fingerUp = document.getElementById('fingerUp');
+const fingerDown = document.getElementById('fingerDown');
+const fingerLeft = document.getElementById('fingerLeft');
+const fingerRight = document.getElementById('fingerRight');
+
 // Mobile detection
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -1179,6 +1186,27 @@ overlayRestartBtn.addEventListener('touchstart', (e) => {
     gameLoop();
 });
 
+// Finger control event listeners
+fingerUp.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('up');
+});
+
+fingerDown.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('down');
+});
+
+fingerLeft.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('left');
+});
+
+fingerRight.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('right');
+});
+
 // Desktop button event listeners
 pauseBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
@@ -1208,6 +1236,7 @@ gameLoop();
 if (isMobile) {
     mobileControls.classList.add('show');
     gameControlsOverlay.classList.add('show');
+    fingerControls.classList.add('show');
     
     // Add swipe gesture support
     canvas.addEventListener('touchstart', handleTouchStart, false);
@@ -1217,7 +1246,7 @@ if (isMobile) {
     const instructions = document.querySelector('.instructions');
     if (instructions) {
         instructions.innerHTML = `
-            Swipe on screen or use buttons below to move<br>
+            Use finger controls around game, swipe, or buttons below<br>
             <strong>🎯 How to Learn:</strong><br>
             1. See the foreign word at the top<br>
             2. Find the food with the English translation<br>
