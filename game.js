@@ -1108,6 +1108,8 @@ document.addEventListener('keydown', (event) => {
 function handleMobileDirection(direction) {
     if (!gameRunning || gamePaused) return;
     
+    console.log('Mobile direction:', direction);
+    
     switch (direction) {
         case 'up':
             if (dy !== 1) {
@@ -1192,7 +1194,17 @@ fingerUp.addEventListener('touchstart', (e) => {
     handleMobileDirection('up');
 });
 
+fingerUp.addEventListener('click', (e) => {
+    e.preventDefault();
+    handleMobileDirection('up');
+});
+
 fingerDown.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('down');
+});
+
+fingerDown.addEventListener('click', (e) => {
     e.preventDefault();
     handleMobileDirection('down');
 });
@@ -1202,7 +1214,17 @@ fingerLeft.addEventListener('touchstart', (e) => {
     handleMobileDirection('left');
 });
 
+fingerLeft.addEventListener('click', (e) => {
+    e.preventDefault();
+    handleMobileDirection('left');
+});
+
 fingerRight.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleMobileDirection('right');
+});
+
+fingerRight.addEventListener('click', (e) => {
     e.preventDefault();
     handleMobileDirection('right');
 });
