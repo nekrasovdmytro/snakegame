@@ -133,13 +133,13 @@
 
         .finger-control-area {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 0, 0, 0.8);
             font-size: 20px;
             font-weight: bold;
             backdrop-filter: blur(5px);
@@ -154,15 +154,15 @@
         }
 
         .finger-control-area:active {
-            background: rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 1);
+            background: rgba(255, 0, 0, 0.3);
+            color: rgba(255, 0, 0, 1);
             transform: scale(0.95);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
         .finger-control-area:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 0, 0, 0.2);
+            color: rgba(255, 0, 0, 0.9);
         }
 
         .finger-control-area.up {
@@ -634,7 +634,7 @@
             }
 
             .mobile-controls {
-                display: flex;
+                display: none;
             }
 
             .game-controls-overlay {
@@ -703,7 +703,7 @@
             }
 
             .mobile-controls {
-                bottom: 5px;
+                display: none;
             }
 
             .game-controls-overlay .control-btn {
@@ -798,8 +798,7 @@
             }
 
             .mobile-controls {
-                bottom: 2px;
-                gap: 6px;
+                display: none;
             }
 
             .game-controls-overlay .control-btn {
@@ -862,7 +861,7 @@
             }
 
             .mobile-controls {
-                bottom: 2px;
+                display: none;
             }
 
             canvas {

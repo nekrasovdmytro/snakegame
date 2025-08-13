@@ -1258,7 +1258,6 @@ gameLoop();
 
 // Show mobile controls on mobile devices
 if (isMobile) {
-    mobileControls.classList.add('show');
     gameControlsOverlay.classList.add('show');
     fingerControls.classList.add('show');
     
@@ -1270,12 +1269,12 @@ if (isMobile) {
     const instructions = document.querySelector('.instructions');
     if (instructions) {
         instructions.innerHTML = `
-            Use circular controls at bottom right, swipe, or buttons below<br>
+            Use red circular controls at bottom right or swipe on screen<br>
             <strong>🎯 How to Learn:</strong><br>
             1. See the foreign word at the top<br>
             2. Find the food with the English translation<br>
             3. Eat it to learn the word!<br>
-            Tap pause/restart buttons on game or below<br>
+            Tap pause/restart buttons on game<br>
             <span class="key">🇪🇸🇩🇪🇺🇦</span> Choose your learning language
         `;
     }
