@@ -966,10 +966,12 @@ function drawCurrentWord() {
     ctx.font = 'bold 20px Orbitron';
     ctx.fillText(currentTranslation, canvas.width / 2, 95);
     
-    // Draw the Ukrainian translation
-    ctx.fillStyle = '#ff6b6b';
-    ctx.font = 'bold 18px Rajdhani';
-    ctx.fillText(currentUkrainian, canvas.width / 2, 120);
+    // Draw the Ukrainian translation only if it exists
+    if (currentUkrainian && currentUkrainian !== 'undefined') {
+        ctx.fillStyle = '#ff6b6b';
+        ctx.font = 'bold 18px Rajdhani';
+        ctx.fillText(currentUkrainian, canvas.width / 2, 120);
+    }
     
     ctx.restore();
 }
