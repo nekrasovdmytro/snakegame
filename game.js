@@ -1017,7 +1017,6 @@ function resetGame() {
     
     // Update mobile pause button
     if (isMobile) {
-        mobilePauseBtn.textContent = '⏸️';
         overlayPauseBtn.textContent = '⏸️';
     }
 }
@@ -1033,14 +1032,12 @@ function updatePauseButton() {
         pauseBtn.textContent = '▶️ RESUME';
         pauseBtn.classList.add('active');
         if (isMobile) {
-            mobilePauseBtn.textContent = '▶️';
             overlayPauseBtn.textContent = '▶️';
         }
     } else {
         pauseBtn.textContent = '⏸️ PAUSE';
         pauseBtn.classList.remove('active');
         if (isMobile) {
-            mobilePauseBtn.textContent = '⏸️';
             overlayPauseBtn.textContent = '⏸️';
         }
     }
@@ -1159,17 +1156,6 @@ leftBtn.addEventListener('touchstart', (e) => {
 rightBtn.addEventListener('touchstart', (e) => {
     e.preventDefault();
     handleMobileDirection('right');
-});
-
-mobilePauseBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    togglePause();
-});
-
-mobileRestartBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    resetGame();
-    gameLoop();
 });
 
 // Game overlay controls event listeners
